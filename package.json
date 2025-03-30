@@ -1,0 +1,15 @@
+{
+  "name": "elysia-solid",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@elysiajs/eden": "^1.2.0",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "cd backend && bun dev"
+  }
+}
