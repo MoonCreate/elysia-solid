@@ -1,10 +1,13 @@
-import { createSignal } from 'solid-js'
-import solidLogo from './assets/solid.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createSignal } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { createGreetIndexApi } from "./signal/api/index.signal";
 
 function App() {
-  const [count, setCount] = createSignal(0)
+  const [count, setCount] = createSignal(0);
+  const indexQuery = createGreetIndexApi(() => count() + " Elysia");
+  console.log("re render");
 
   return (
     <>
@@ -17,6 +20,7 @@ function App() {
         </a>
       </div>
       <h1>Vite + Solid</h1>
+      <h2>{indexQuery.data}</h2>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count()}
@@ -29,7 +33,7 @@ function App() {
         Click on the Vite and Solid logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

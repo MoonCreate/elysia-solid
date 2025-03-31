@@ -17,8 +17,11 @@ services:
       - elysia_solid_network
 
   nginx:
-    image: nginx:latest
+    image: elysia-solid-nginx
     container_name: nginx_proxy
+    build:
+      context: ../
+      dockerfile: ./dockerfile/frontend.Dockerfile
     ports:
       - "80:80"
     volumes:

@@ -12,6 +12,12 @@
       ],
       "#back": [
         "./backend/src"
+      ],
+      "#front/*": [
+        "./frontend/src/*"
+      ],
+      "#front": [
+        "./frontend/src"
       ]
     }
   }

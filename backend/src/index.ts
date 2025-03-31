@@ -1,11 +1,12 @@
 import Elysia from "elysia";
 import { APP_PORT } from "./constants/env";
 import { Controllers } from "./controllers";
-import { SwaggerPlugin } from "./plugins";
+import { CorsPlugin, SwaggerPlugin } from "./plugins";
 
 const app = new Elysia({
   name: "backend.elysia.app",
 })
+  .use(CorsPlugin)
   .use(SwaggerPlugin)
   .use(Controllers)
   .onStart(({ server }) => {

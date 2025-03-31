@@ -1,10 +1,16 @@
 import { t } from "elysia";
+import { createInsertSchema } from "drizzle-typebox";
+import { UserTable } from "./schema";
 
-const CreateUserDto = t.Object({
+const BaseCreateUserDto = createInsertSchema(UserTable, {
   email: t.String({ format: "email" }),
-  password: t.String({ minLength: 8 }),
-  firstName: t.String({ maxLength: 50 }),
-  lastName: t.String({ maxLength: 50 }),
 });
+
+const CreateUserDto = t.Pick(BaseCreateUserDto, [
+  "email",
+  "password",
+  "firstName",
+  "lastName",
+]);
 
 export { CreateUserDto };
