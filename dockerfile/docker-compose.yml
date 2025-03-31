@@ -1,0 +1,33 @@
+services:
+  backend:
+    image: elysia-solid-backend
+    container_name: backend
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    build:
+      context: ../
+      dockerfile: ./dockerfile/backend.Dockerfile
+    env_file:
+      - .env
+    networks:
+      - elysia_solid_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - elysia_solid_network
+
+networks:
+  elysia_solid_network:
+    driver: bridge

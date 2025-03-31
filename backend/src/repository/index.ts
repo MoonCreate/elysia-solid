@@ -2,6 +2,7 @@ import { DATABASE_URL } from "#back/constants/env";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "./schema";
+import Elysia from "elysia";
 
 const pool = new Pool({
   connectionString: DATABASE_URL,
@@ -9,4 +10,9 @@ const pool = new Pool({
 
 const db = drizzle({ client: pool, schema });
 
-export { db };
+
+const Repository = new Elysia({ name: "repository" })
+  .decorate("db", db)
+  .decorate("schema", schema);
+
+export { db, Repository };

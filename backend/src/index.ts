@@ -1,12 +1,10 @@
 import Elysia from "elysia";
 import { APP_PORT } from "./constants/env";
 import { Controllers } from "./controllers";
-
-// Plugin Imports
-import { SwaggerPlugin } from "./plugins/swagger.plugin";
+import { SwaggerPlugin } from "./plugins";
 
 const app = new Elysia({
-  name: "backend.elysia.app"
+  name: "backend.elysia.app",
 })
   .use(SwaggerPlugin)
   .use(Controllers)
