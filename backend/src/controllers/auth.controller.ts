@@ -83,6 +83,25 @@ const AuthController = new Elysia({
         success: t.Boolean(),
       }),
     },
-  );
+  )
 
+  .get(
+    "/refresh",
+    async ({
+      authService: { getRefreshInfo, createAcessToken },
+      query: { token },
+      error,
+    }) => {
+      const userId = await getRefreshInfo(token);
+      if (userId) return await createAcessToken(userId);
+      return error(400, "Invalid Token");
+    },
+    {
+      query: t.Object({ token: t.String() }),
+      response: {
+        200: t.String(),
+        400: t.String(),
+      },
+    },
+  );
 export { AuthController };

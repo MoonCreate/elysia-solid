@@ -10,7 +10,6 @@ const pool = new Pool({
 
 const db = drizzle({ client: pool, schema });
 
-
 const Repository = new Elysia({ name: "repository" })
   .decorate("db", db)
   .decorate("schema", schema);

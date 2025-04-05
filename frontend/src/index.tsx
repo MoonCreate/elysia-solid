@@ -1,17 +1,28 @@
 /* @refresh reload */
-import { render } from "solid-js/web";
 import "./index.css";
-import App from "./App.tsx";
+import { render } from "solid-js/web";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
+import { RouterProvider, createRouter } from "@tanstack/solid-router";
+import { routeTree } from "./routeTree.gen";
+import { ContexProvider } from "./context";
+import { BASE_PATH } from "./constanst";
 
+const router = createRouter({ routeTree, basepath: BASE_PATH });
 const queryClient = new QueryClient();
 
 const root = document.getElementById("root");
 
+declare module "@tanstack/solid-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 render(
   () => (
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ContexProvider>
+        <RouterProvider router={router} />
+      </ContexProvider>
     </QueryClientProvider>
   ),
   root!,

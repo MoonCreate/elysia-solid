@@ -14,27 +14,40 @@ const AuthService = new Elysia({ name: "auth.service" })
 
   .derive(
     { as: "scoped" },
-    ({ db, schema: { SessionTable }, headers: { authorization }, jwt }) => ({
+    ({
+      db,
+      schema: { SessionTable },
+      headers: { authorization },
+      accessJwt,
+      refreshJwt,
+    }) => ({
       authService: {
         async hasAccess() {
           if (!authorization) return false;
           const token = authorization.replace("Bearer ", "");
-          const user = await jwt.verify(token);
+          const user = await accessJwt.verify(token);
 
           return !!user && user.typ === TokenType["token.access"];
+        },
+
+        createAcessToken: async (userId: string, now = Date.now()) => {
+          return accessJwt.sign({
+            sub: userId,
+            typ: TokenType["token.access"],
+            iat: now,
+          });
         },
 
         createToken: async (userId: string) => {
           const now = Date.now();
           const [accessToken, refreshToken] = await Promise.all([
-            jwt.sign({
+            accessJwt.sign({
               sub: userId,
               typ: TokenType["token.access"],
               iat: now,
-              exp: 30 * 1_000, // 30sec
             }),
 
-            jwt.sign({
+            refreshJwt.sign({
               sub: userId,
               typ: TokenType["token.refresh"],
               iat: now,
@@ -51,7 +64,7 @@ const AuthService = new Elysia({ name: "auth.service" })
         },
 
         async blacklistRefresh(token: string) {
-          const result = await jwt.verify(token);
+          const result = await refreshJwt.verify(token);
           if (
             !result ||
             result.typ !== TokenType["token.refresh"] ||
@@ -62,6 +75,20 @@ const AuthService = new Elysia({ name: "auth.service" })
             .delete(SessionTable)
             .where(eq(SessionTable.token, token));
           return rowCount === 1;
+        },
+
+        async getRefreshInfo(token: string) {
+          const sessionData = await db.query.SessionTable.findFirst({
+            where: (session, { eq }) => eq(session.token, token),
+          });
+          if (!sessionData) return undefined;
+
+          const result = await refreshJwt.verify(token);
+          if (!result) {
+            await db.delete(SessionTable).where(eq(SessionTable.token, token));
+            return undefined;
+          }
+          return sessionData.userId;
         },
       },
     }),

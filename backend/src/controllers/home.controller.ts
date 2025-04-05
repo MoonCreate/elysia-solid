@@ -15,6 +15,7 @@ const HomeController = new Elysia({
       name: t.Optional(t.String()),
     }),
     response: t.String(),
+    mustSignIn: true,
   })
   .get("/protected", () => "Hello", {
     mustSignIn: true,

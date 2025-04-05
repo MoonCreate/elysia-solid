@@ -9,6 +9,9 @@
     "typescript": "^5"
   },
   "scripts": {
-    "dev": "cd backend && bun dev"
+    "dev:back": "cd backend && bun dev",
+    "dev:front": "cd frontend && bun dev",
+    "dev:db-studio": "cd backend && bun run drizzle-kit studio",
+    "deploy": "cd dockerfile && docker compose up --build"
   }
 }
