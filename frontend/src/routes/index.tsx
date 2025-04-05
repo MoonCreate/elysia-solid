@@ -1,10 +1,14 @@
 import { Button } from "#front/components/ui/button";
 import { createAuthLogoutApi } from "#front/signal/api/auth.signal";
+import { setMustLogin } from "#front/signal/validation/authcheck.signal";
 import { useColorMode } from "@kobalte/core";
 import { createFileRoute } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  beforeLoad: () => {
+    setMustLogin(false);
+  },
 });
 
 function Index() {
