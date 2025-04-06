@@ -21,7 +21,7 @@ jobs:
           bun-version: latest
 
       - name: Install Dependencies
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile && cd frontend && bun install --frozen-lockfile && cd ../backend && bun install --frozen-lockfile
 
       - name: Lint Code
         run: bun run lint
