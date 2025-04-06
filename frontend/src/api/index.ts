@@ -11,8 +11,6 @@ import { createLocalStorageSignal } from "#front/signal/storage/create-local.sig
 
 let defaultAccessToken;
 
-console.log("Api");
-
 if (globalThis.window !== undefined) {
   defaultAccessToken = cookie.get(STORAGE_ACCESS_TOKEN_KEY);
 }
