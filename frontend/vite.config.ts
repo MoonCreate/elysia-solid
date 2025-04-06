@@ -1,6 +1,6 @@
+import path from "node:path";
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
-import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "#front": path.resolve(import.meta.dirname, "./src"),
+      "#back": path.resolve(import.meta.dirname, "../backend/src"),
     },
   },
   plugins: [

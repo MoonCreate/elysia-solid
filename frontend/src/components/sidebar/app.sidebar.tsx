@@ -1,5 +1,11 @@
 import { For } from "solid-js";
 
+import LucideHome from "lucide-solid/icons/home";
+import LucideMail from "lucide-solid/icons/mail";
+import LucideCalendar from "lucide-solid/icons/calendar";
+import LucideSearch from "lucide-solid/icons/search";
+import LucideSettings from "lucide-solid/icons/settings";
+import { Link } from "@tanstack/solid-router";
 import {
   Sidebar,
   SidebarContent,
@@ -10,12 +16,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "#front/components/ui/sidebar";
-import LucideHome from "lucide-solid/icons/home";
-import LucideMail from "lucide-solid/icons/mail";
-import LucideCalendar from "lucide-solid/icons/calendar";
-import LucideSearch from "lucide-solid/icons/search";
-import LucideSettings from "lucide-solid/icons/settings";
-import { Link } from "@tanstack/solid-router";
 
 const items = [
   {

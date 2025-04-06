@@ -1,13 +1,14 @@
+import { createRootRoute, Outlet, useRouter } from "@tanstack/solid-router";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import { getRefreshToken } from "#front/api";
 import { LoginForm } from "#front/components/form/login.form";
 import { AppSidebar } from "#front/components/sidebar/app.sidebar";
 import { Dialog, DialogContent } from "#front/components/ui/dialog";
 import { SidebarProvider, SidebarTrigger } from "#front/components/ui/sidebar";
 import { getMustLogin } from "#front/signal/validation/authcheck.signal";
-import { createRootRoute, Outlet, useRouter } from "@tanstack/solid-router";
-import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 
-export const Route = createRootRoute({
+const Route = createRootRoute({
   component: RootComponent,
 });
 
@@ -38,3 +39,5 @@ function RootComponent() {
     </SidebarProvider>
   );
 }
+
+export { Route };

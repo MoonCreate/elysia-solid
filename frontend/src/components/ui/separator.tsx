@@ -1,18 +1,18 @@
-import type { ValidComponent } from "solid-js";
 import { splitProps } from "solid-js";
 
-import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import * as SeparatorPrimitive from "@kobalte/core/separator";
 
-import { cn } from "#front/lib/utils";
+import { type ValidComponent } from "solid-js";
+import { type PolymorphicProps } from "@kobalte/core/polymorphic";
+import { cn } from "#front/lib/utilities";
 
-type SeparatorRootProps<T extends ValidComponent = "hr"> =
+type SeparatorRootProperties<T extends ValidComponent = "hr"> =
   SeparatorPrimitive.SeparatorRootProps<T> & { class?: string | undefined };
 
 const Separator = <T extends ValidComponent = "hr">(
-  props: PolymorphicProps<T, SeparatorRootProps<T>>,
+  properties: PolymorphicProps<T, SeparatorRootProperties<T>>,
 ) => {
-  const [local, others] = splitProps(props as SeparatorRootProps, [
+  const [local, others] = splitProps(properties as SeparatorRootProperties, [
     "class",
     "orientation",
   ]);

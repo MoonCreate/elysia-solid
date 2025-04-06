@@ -1,16 +1,16 @@
 import { JSX } from "solid-js";
-import { ThemeProvider } from "./theme.context";
 import { Toaster } from "#front/components/ui/toast";
+import { ThemeProvider } from "./theme.context";
 
-type Props = {
+type Properties = {
   children: JSX.Element;
 };
 
-function ContexProvider(props: Props) {
+function ContexProvider(properties: Properties) {
   return (
     <ThemeProvider>
       <Toaster />
-      {props.children}
+      {properties.children}
     </ThemeProvider>
   );
 }

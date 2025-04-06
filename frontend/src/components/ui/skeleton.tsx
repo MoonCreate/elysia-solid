@@ -1,18 +1,20 @@
-import type { ValidComponent } from "solid-js";
 import { splitProps } from "solid-js";
 
-import type { PolymorphicProps } from "@kobalte/core/polymorphic";
 import * as SkeletonPrimitive from "@kobalte/core/skeleton";
 
-import { cn } from "#front/lib/utils";
+import { type ValidComponent } from "solid-js";
+import { type PolymorphicProps } from "@kobalte/core/polymorphic";
+import { cn } from "#front/lib/utilities";
 
-type SkeletonRootProps<T extends ValidComponent = "div"> =
+type SkeletonRootProperties<T extends ValidComponent = "div"> =
   SkeletonPrimitive.SkeletonRootProps<T> & { class?: string | undefined };
 
 const Skeleton = <T extends ValidComponent = "div">(
-  props: PolymorphicProps<T, SkeletonRootProps<T>>,
+  properties: PolymorphicProps<T, SkeletonRootProperties<T>>,
 ) => {
-  const [local, others] = splitProps(props as SkeletonRootProps, ["class"]);
+  const [local, others] = splitProps(properties as SkeletonRootProperties, [
+    "class",
+  ]);
   return (
     <SkeletonPrimitive.Root
       class={cn(

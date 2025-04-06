@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "husky": "^9.1.7"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -12,6 +13,8 @@
     "dev:back": "cd backend && bun dev",
     "dev:front": "cd frontend && bun dev",
     "dev:db-studio": "cd backend && bun run drizzle-kit studio",
-    "deploy": "cd dockerfile && docker compose up --build"
+    "deploy": "cd dockerfile && docker compose up --build",
+    "lint": "cd frontend && bun lint --fix",
+    "prepare": "husky"
   }
 }

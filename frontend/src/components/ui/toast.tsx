@@ -1,10 +1,9 @@
-import type { Component, ComponentProps } from "solid-js";
-
 import { Toaster as Sonner } from "solid-sonner";
+import { type Component, type ComponentProps } from "solid-js";
 
-type ToasterProps = ComponentProps<typeof Sonner>;
+type ToasterProperties = ComponentProps<typeof Sonner>;
 
-const Toaster: Component<ToasterProps> = (props) => {
+const Toaster: Component<ToasterProperties> = (properties) => {
   return (
     <Sonner
       class="toaster group"
@@ -19,7 +18,7 @@ const Toaster: Component<ToasterProps> = (props) => {
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
         },
       }}
-      {...props}
+      {...properties}
     />
   );
 };

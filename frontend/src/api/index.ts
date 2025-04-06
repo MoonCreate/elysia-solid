@@ -1,18 +1,19 @@
 import { Treaty, treaty } from "@elysiajs/eden";
+import { createSignal, untrack } from "solid-js";
+import cookie from "js-cookie";
 import { type App } from "#back/index";
 import {
   API_URL,
   STORAGE_ACCESS_TOKEN_KEY,
   STORAGE_REFRESH_TOKEN_KEY,
 } from "#front/constanst";
-import { createSignal, untrack } from "solid-js";
-import cookie from "js-cookie";
 import { createLocalStorageSignal } from "#front/signal/storage/create-local.signal";
-import { toast } from "solid-sonner";
 
 let defaultAccessToken;
 
-if (typeof window !== "undefined") {
+console.log("Api");
+
+if (globalThis.window !== undefined) {
   defaultAccessToken = cookie.get(STORAGE_ACCESS_TOKEN_KEY);
 }
 
@@ -37,7 +38,7 @@ const invalidateToken = () => {
   cookie.remove(STORAGE_ACCESS_TOKEN_KEY);
 };
 
-// @ts-expect-error
+// @ts-expect-error too much error i cant handle it
 const api = treaty<App>(API_URL, {
   headers: (_, options) => {
     const token = getAccessToken();
@@ -76,7 +77,7 @@ const api = treaty<App>(API_URL, {
 
 type InferError<
   T extends (
-    ...args: any[]
+    ...arguments_: never[]
   ) => Promise<Treaty.TreatyResponse<Record<number, unknown>>>,
 > = NonNullable<Awaited<ReturnType<T>>["error"]>;
 

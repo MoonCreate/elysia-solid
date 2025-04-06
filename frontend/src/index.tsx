@@ -10,7 +10,7 @@ import { BASE_PATH } from "./constanst";
 const router = createRouter({ routeTree, basepath: BASE_PATH });
 const queryClient = new QueryClient();
 
-const root = document.getElementById("root");
+const root = document.querySelector("#root") ?? document.body;
 
 declare module "@tanstack/solid-router" {
   interface Register {
@@ -25,5 +25,5 @@ render(
       </ContexProvider>
     </QueryClientProvider>
   ),
-  root!,
+  root,
 );

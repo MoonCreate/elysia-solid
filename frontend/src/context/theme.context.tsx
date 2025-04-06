@@ -5,16 +5,16 @@ import {
 } from "@kobalte/core";
 import { JSX } from "solid-js";
 
-type Props = {
+type Properties = {
   children: JSX.Element;
 };
 
-function ThemeProvider(props: Props) {
+function ThemeProvider(properties: Properties) {
   return (
     <>
       <ColorModeScript storageType={cookieStorageManager.type} />
       <ColorModeProvider storageManager={cookieStorageManager}>
-        {props.children}
+        {properties.children}
       </ColorModeProvider>
     </>
   );

@@ -1,9 +1,9 @@
-import { createAuthLoginApi } from "#front/signal/api/auth.signal";
 import { JSX } from "solid-js";
+import { cn } from "#front/lib/utilities";
+import { createAuthLoginApi } from "#front/signal/api/auth.signal";
 import { Button } from "../ui/button";
 import { TextField, TextFieldInput, TextFieldLabel } from "../ui/text-field";
 import { GithubIcon } from "../icons/github.icon";
-import { cn } from "#front/lib/utils";
 
 function LoginForm() {
   const query = createAuthLoginApi();
@@ -17,7 +17,7 @@ function LoginForm() {
   };
   return (
     <div class="grid grid-cols-2">
-      <div class=" rounded-l-md border isolate relative after:m-auto after:absolute after:bg-primary after:size-15 after:rounded-full after:inset-0"></div>
+      <div class=" rounded-l-md border isolate relative after:m-auto after:absolute after:bg-primary after:size-15 after:rounded-full after:inset-0" />
       {/* form */}
       <form
         on:submit={onSubmit}

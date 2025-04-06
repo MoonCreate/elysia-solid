@@ -1,5 +1,5 @@
-import { api } from "#front/api";
 import { createQuery, keepPreviousData } from "@tanstack/solid-query";
+import { api } from "#front/api";
 
 const createGreetIndexApi = (name: () => string) => {
   return createQuery(() => ({
@@ -10,7 +10,5 @@ const createGreetIndexApi = (name: () => string) => {
     },
   }));
 };
-
-api.protected;
 
 export { createGreetIndexApi };

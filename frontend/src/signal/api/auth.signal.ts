@@ -1,3 +1,5 @@
+import { createMutation } from "@tanstack/solid-query";
+import { toast } from "solid-sonner";
 import {
   api,
   getRefreshToken,
@@ -5,8 +7,6 @@ import {
   invalidateToken,
   setToken,
 } from "#front/api";
-import { createMutation } from "@tanstack/solid-query";
-import { toast } from "solid-sonner";
 
 const createAuthLoginApi = () =>
   createMutation(() => ({
@@ -18,13 +18,18 @@ const createAuthLoginApi = () =>
 
     onError: (error: InferError<typeof api.auth.login.post>) => {
       switch (error.status) {
-        case 404:
+        case 404: {
           return toast.error("Password or email doesnt match our record");
-        case 422:
+        }
+        case 422: {
           return toast.error(error.value.message);
-        default:
-          // @ts-expect-error
-          return toast.error(`${error.status}: ${error.value}`);
+        }
+        default: {
+          return toast.error(
+            // @ts-expect-error it ussualy stated when server is error
+            `${error.status}: ${error.value ?? "Server Error"}`,
+          );
+        }
       }
     },
 
@@ -39,17 +44,18 @@ const createAuthLogoutApi = () =>
     mutationFn: async () => {
       const refreshToken = getRefreshToken();
       if (!refreshToken) return { success: true };
-      const { error, data } = await api.auth.logout.post({ refreshToken });
-      console.log(data);
+      const { error } = await api.auth.logout.post({ refreshToken });
       if (error) throw error;
     },
 
     onError: (error: InferError<typeof api.auth.logout.post>) => {
       switch (error.status) {
-        case 422:
+        case 422: {
           return toast.error(error.value.message);
-        default:
+        }
+        default: {
           return toast.error(`${error.status}: ${error.value}`);
+        }
       }
     },
 
